@@ -3,45 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X1 DOS PRIMOS69</title>
+    <title>X1 DOS PRIMOS69 - RAIO-X PRO</title>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <style>
-        :root { --ef-blue: #001d4a; --ef-dark: #000a1a; --ef-yellow: #d3ff00; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--ef-dark); color: white; text-align: center; padding: 15px; margin: 0; }
+        :root { --amarelo: #d3ff00; --fundo: #000a1a; --card: #001d4a; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--fundo); color: white; text-align: center; padding: 15px; margin: 0; }
         .container { max-width: 850px; margin: auto; }
-        .card-table { background: rgba(0, 29, 74, 0.8); border: 1px solid rgba(211, 255, 0, 0.3); border-radius: 15px; overflow: hidden; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { background: rgba(211, 255, 0, 0.1); color: var(--ef-yellow); padding: 12px; font-size: 11px; }
-        td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .ef-panel { background: linear-gradient(135deg, #001d4a 0%, #000a1a 100%); border-radius: 20px; padding: 20px; border-left: 8px solid var(--ef-yellow); margin-bottom: 20px; }
-        select { background: #000; color: white; border: 1px solid var(--ef-yellow); padding: 8px; border-radius: 5px; width: 130px; }
-        input { width: 60px; height: 50px; font-size: 24px; text-align: center; border-radius: 8px; margin-top: 10px; }
-        button { background: var(--ef-yellow); color: var(--ef-dark); font-weight: 900; border-radius: 50px; border: none; padding: 12px 30px; cursor: pointer; margin-top: 15px; }
-        .history-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 10px; height: 200px; overflow-y: auto; }
+        .card-table { background: var(--card); border: 1px solid rgba(211, 255, 0, 0.3); border-radius: 15px; overflow: hidden; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { background: rgba(211, 255, 0, 0.1); color: var(--amarelo); padding: 10px; font-size: 11px; }
+        td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .painel { background: linear-gradient(135deg, #001d4a 0%, #000a1a 100%); border-radius: 20px; padding: 20px; border-left: 8px solid var(--amarelo); margin-bottom: 20px; }
+        select { background: #000; color: white; border: 1px solid var(--amarelo); padding: 8px; border-radius: 5px; width: 130px; }
+        input { width: 60px; height: 50px; font-size: 24px; text-align: center; border-radius: 8px; margin-top: 10px; border: none; }
+        button { background: var(--amarelo); color: #000; font-weight: 900; border-radius: 50px; border: none; padding: 12px 30px; cursor: pointer; margin: 10px 0; }
+        .whatsapp-btn { background: #25d366; color: white; width: 100%; max-width: 300px; }
+        .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .history-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 10px; height: 280px; overflow-y: auto; font-size: 13px; text-align: left; }
+        .stats-box { background: rgba(0, 0, 0, 0.5); border-radius: 10px; padding: 15px; margin-bottom: 10px; font-size: 13px; line-height: 1.8; border: 1px solid var(--amarelo); text-align: left; }
+        .score-pill { background: var(--amarelo); color: black; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .danger-zone { margin-top: 30px; padding: 15px; border-top: 1px solid rgba(255,0,0,0.2); }
+        b { color: var(--amarelo); }
+        @media (max-width: 600px) { .history-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>X1 DOS PRIMOS69</h1>
+
         <div class="card-table">
             <table>
-                <thead><tr><th>Pos</th><th>Time</th><th>PTS</th><th>V/E/D</th><th>SG</th></tr></thead>
+                <thead>
+                    <tr><th>Pos</th><th>Time</th><th>PTS</th><th>V/E/D</th><th>SG</th><th>%</th></tr>
+                </thead>
                 <tbody id="tabela-corpo"></tbody>
             </table>
         </div>
-        <div class="ef-panel">
+
+        <button class="whatsapp-btn" onclick="compartilharZap()">📲 Mandar Placar no Zap</button>
+
+        <div class="painel">
             <h3>REGISTRAR CONFRONTO</h3>
             <div style="display:flex; justify-content: space-around; align-items: center;">
                 <div><select id="p1"></select><br><input type="number" id="gols1" value="0"></div>
-                <div style="font-weight:bold; color:var(--ef-yellow)">VS</div>
+                <div style="color:var(--amarelo); font-weight:bold;">VS</div>
                 <div><select id="p2"></select><br><input type="number" id="gols2" value="0"></div>
             </div>
-            <button onclick="registrarJogo()">SALVAR RESULTADO</button>
+            <button onclick="registrarJogo()">Salvar Resultado</button>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <div><h4>⚔️ Confronto Direto</h4><div class="history-box" id="caixa-confronto"></div></div>
-            <div><h4>📜 Histórico</h4><div class="history-box" id="caixa-geral"></div></div>
+
+        <div class="history-grid">
+            <div>
+                <h4>⚔️ Raio-X do Confronto</h4>
+                <div style="margin-bottom:10px; display:flex; gap:5px; justify-content: center;">
+                    <select id="f1" onchange="filtrarConfronto()"></select>
+                    <select id="f2" onchange="filtrarConfronto()"></select>
+                </div>
+                <div id="stats-confronto"></div>
+                <div class="history-box" id="caixa-confronto"></div>
+            </div>
+            <div>
+                <h4>📜 Histórico Geral</h4>
+                <div class="history-box" id="caixa-geral"></div>
+            </div>
+        </div>
+
+        <div class="danger-zone">
+            <button onclick="desfazerUltimo()" style="background:#ffa500; color:black; font-size:10px;">ANULAR ÚLTIMO JOGO</button>
+            <button onclick="zerarTudo()" style="background: #ff4444; color: white; font-size: 10px;">ZERAR CAMPEONATO</button>
         </div>
     </div>
 
@@ -51,58 +82,113 @@
             authDomain: "x1-dos-primos69.firebaseapp.com",
             databaseURL: "https://x1-dos-primos69-default-rtdb.firebaseio.com",
             projectId: "x1-dos-primos69",
-            storageBucket: "x1-dos-primos69.firebasestorage.app",
             appId: "1:202105662518:web:395970a7858318b529bc97"
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // NOMES DOS TIMES CORRIGIDOS
         const nomesJogadores = ["LSHOW69", "CHEIROZIN", "YGOL"];
-        let appData = { jogadores: {}, historico: [] };
-        nomesJogadores.forEach(n => appData.jogadores[n] = { pts: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 });
+        const gerarDadosIniciais = () => {
+            let base = { jogadores: {}, historico: [] };
+            nomesJogadores.forEach(n => base.jogadores[n] = { pts: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 });
+            return base;
+        };
+
+        let appData = gerarDadosIniciais();
 
         db.ref('arena_v1').on('value', (snapshot) => {
-            if (snapshot.val()) { appData = snapshot.val(); atualizarInterface(); }
+            const data = snapshot.val();
+            if (data && data.jogadores && data.jogadores["LSHOW69"]) {
+                appData = data;
+                atualizarInterface();
+            } else {
+                db.ref('arena_v1').set(gerarDadosIniciais());
+            }
         });
 
         function atualizarInterface() {
             const corpo = document.getElementById('tabela-corpo');
             corpo.innerHTML = "";
-            Object.entries(appData.jogadores).sort((a,b) => b[1].pts - a[1].pts).forEach(([nome, d], i) => {
-                corpo.innerHTML += `<tr><td>${i+1}º</td><td>${nome}</td><td>${d.pts}</td><td>${d.v}/${d.e}/${d.d}</td><td>${d.gp-d.gc}</td></tr>`;
+            const ordenados = Object.entries(appData.jogadores).sort((a, b) => b[1].pts - a[1].pts || (b[1].gp - b[1].gc) - (a[1].gp - a[1].gc));
+            ordenados.forEach(([nome, d], i) => {
+                const tot = d.v + d.e + d.d;
+                const apr = tot > 0 ? ((d.pts / (tot * 3)) * 100).toFixed(0) : 0;
+                corpo.innerHTML += `<tr><td>${i+1}º</td><td>${nome}</td><td>${d.pts}</td><td>${d.v}/${d.e}/${d.d}</td><td>${d.gp-d.gc}</td><td>${apr}%</td></tr>`;
             });
-            document.getElementById('caixa-geral').innerHTML = (appData.historico || []).slice().reverse().map(j => `<div style="margin-bottom:5px">${j.p1} ${j.g1}x${j.g2} ${j.p2}</div>`).join('');
+            document.getElementById('caixa-geral').innerHTML = (appData.historico || []).slice().reverse().map(j => `<div style="margin-bottom:8px;">${j.p1} <span class="score-pill">${j.g1}x${j.g2}</span> ${j.p2}</div>`).join('');
+            filtrarConfronto();
         }
 
         function registrarJogo() {
-            const p1 = document.getElementById('p1').value;
-            const p2 = document.getElementById('p2').value;
-            const g1 = parseInt(document.getElementById('gols1').value);
-            const g2 = parseInt(document.getElementById('gols2').value);
+            const p1 = document.getElementById('p1').value, p2 = document.getElementById('p2').value;
+            const g1 = parseInt(document.getElementById('gols1').value), g2 = parseInt(document.getElementById('gols2').value);
             if (p1 === p2) return alert("Escolha times diferentes!");
-
-            // Atualiza pontos
-            appData.jogadores[p1].gp += g1; appData.jogadores[p1].gc += g2;
-            appData.jogadores[p2].gp += g2; appData.jogadores[p2].gc += g1;
-            if (g1 > g2) { appData.jogadores[p1].pts += 3; appData.jogadores[p1].v += 1; appData.jogadores[p2].d += 1; }
-            else if (g2 > g1) { appData.jogadores[p2].pts += 3; appData.jogadores[p2].v += 1; appData.jogadores[p1].d += 1; }
-            else { appData.jogadores[p1].pts += 1; appData.jogadores[p1].e += 1; appData.jogadores[p2].pts += 1; appData.jogadores[p2].e += 1; }
-
+            processarResultado(p1, g1, p2, g2, 1);
             if (!appData.historico) appData.historico = [];
             appData.historico.push({ p1, g1, p2, g2 });
-
-            db.ref('arena_v1').set(appData)
-                .then(() => alert("Resultado salvo com sucesso!"))
-                .catch(err => alert("Erro ao salvar: " + err.message));
+            db.ref('arena_v1').set(appData);
         }
 
-        const sels = ['p1', 'p2'];
-        sels.forEach(s => {
-            const el = document.getElementById(s);
-            nomesJogadores.forEach(n => el.innerHTML += `<option value="${n}">${n}</option>`);
-        });
-        document.getElementById('p2').selectedIndex = 1;
+        function processarResultado(p1, g1, p2, g2, mod) {
+            appData.jogadores[p1].gp += (g1 * mod); appData.jogadores[p1].gc += (g2 * mod);
+            appData.jogadores[p2].gp += (g2 * mod); appData.jogadores[p2].gc += (g1 * mod);
+            if (g1 > g2) { appData.jogadores[p1].pts += (3*mod); appData.jogadores[p1].v += (1*mod); appData.jogadores[p2].d += (1*mod); }
+            else if (g2 > g1) { appData.jogadores[p2].pts += (3*mod); appData.jogadores[p2].v += (1*mod); appData.jogadores[p1].d += (1*mod); }
+            else { appData.jogadores[p1].pts += (1*mod); appData.jogadores[p1].e += (1*mod); appData.jogadores[p2].pts += (1*mod); appData.jogadores[p2].e += (1*mod); }
+        }
+
+        function filtrarConfronto() {
+            const f1 = document.getElementById('f1').value;
+            const f2 = document.getElementById('f2').value;
+            const jogos = (appData.historico || []).filter(j => (j.p1 === f1 && j.p2 === f2) || (j.p1 === f2 && j.p2 === f1));
+            
+            let s = { p1_gols: 0, p2_gols: 0, p1_vits: 0, p2_vits: 0, empates: 0 };
+            jogos.forEach(j => {
+                if(j.p1 === f1) {
+                    s.p1_gols += j.g1; s.p2_gols += j.g2;
+                    if(j.g1 > j.g2) s.p1_vits++; else if(j.g2 > j.g1) s.p2_vits++; else s.empates++;
+                } else {
+                    s.p1_gols += j.g2; s.p2_gols += j.g1;
+                    if(j.g2 > j.g1) s.p1_vits++; else if(j.g1 > j.g2) s.p2_vits++; else s.empates++;
+                }
+            });
+
+            const total = jogos.length;
+            const p1_apr = total > 0 ? (((s.p1_vits * 3 + s.empates) / (total * 3)) * 100).toFixed(0) : 0;
+            const p2_apr = total > 0 ? (((s.p2_vits * 3 + s.empates) / (total * 3)) * 100).toFixed(0) : 0;
+
+            let marcouMais = s.p1_gols > s.p2_gols ? f1 : (s.p2_gols > s.p1_gols ? f2 : "Empate");
+            let sofreuMais = s.p1_gols < s.p2_gols ? f1 : (s.p2_gols < s.p1_gols ? f2 : "Empate");
+
+            document.getElementById('stats-confronto').innerHTML = `
+                <div class="stats-box">
+                    ⚽ Marcau mais gols: <b>${marcouMais}</b> (${Math.max(s.p1_gols, s.p2_gols)})<br>
+                    🛡️ Sofreu mais gols: <b>${sofreuMais}</b> (${Math.max(s.p1_gols, s.p2_gols)})<br>
+                    📈 Aproveitamento ${f1}: <b>${p1_apr}%</b><br>
+                    📉 Aproveitamento ${f2}: <b>${p2_apr}%</b><br>
+                    📊 Total de jogos no duelo: <b>${total}</b>
+                </div>`;
+            document.getElementById('caixa-confronto').innerHTML = [...jogos].reverse().map(j => `<div>${j.p1} ${j.g1}x${j.g2} ${j.p2}</div>`).join('');
+        }
+
+        function compartilharZap() {
+            let t = `🏆 *X1 DOS PRIMOS69*\n\n`;
+            Object.entries(appData.jogadores).sort((a,b)=>b[1].pts-a[1].pts).forEach(([n,d],i)=> {
+                const tot = d.v + d.e + d.d;
+                t += `${i+1}º *${n}* - ${d.pts}pts (${tot > 0 ? ((d.pts/(tot*3))*100).toFixed(0) : 0}%)\n`;
+            });
+            window.open(`https://wa.me/?text=${encodeURIComponent(t)}`);
+        }
+
+        function zerarTudo() { if(confirm("Zerar campeonato?")) db.ref('arena_v1').set(gerarDadosIniciais()); }
+        function desfazerUltimo() {
+            if (!appData.historico || appData.historico.length === 0) return;
+            if (confirm("Anular último jogo?")) { const j = appData.historico.pop(); processarResultado(j.p1, j.g1, j.p2, j.g2, -1); db.ref('arena_v1').set(appData); }
+        }
+
+        const sels = ['p1', 'p2', 'f1', 'f2'];
+        sels.forEach(s => nomesJogadores.forEach(n => document.getElementById(s).innerHTML += `<option value="${n}">${n}</option>`));
+        document.getElementById('p2').selectedIndex = 1; document.getElementById('f2').selectedIndex = 1;
     </script>
 </body>
 </html>
