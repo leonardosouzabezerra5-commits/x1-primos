@@ -19,7 +19,7 @@
         body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--fundo); color: var(--branco); margin: 0; padding: 10px; }
         .container { max-width: 950px; margin: auto; }
 
-        header { background: var(--pl-roxo); color: var(--branco); padding: 25px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(61, 25, 91, 0.5); border-bottom: 4px solid var(--pl-verde); }
+        header { background: var(--pl-roxo); color: var(--branco); padding: 25px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(61, 25, 91, 0.5); border-bottom: 4px solid var(--pl-verde); text-align: center; }
         h1 { margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; }
 
         .card-table { background: var(--card); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,255,133,0.05); margin-bottom: 25px; border: 1px solid var(--borda); }
@@ -27,34 +27,32 @@
         th { background: #080808; padding: 15px; text-align: left; font-size: 11px; color: #888; text-transform: uppercase; border-bottom: 1px solid var(--borda); }
         td { padding: 12px 15px; border-bottom: 1px solid var(--borda); font-weight: 600; color: var(--branco); }
         
-        .escudo-tabela { width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--pl-roxo); object-fit: cover; vertical-align: middle; margin-right: 15px; background: #000; }
+        .escudo-tabela { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--pl-roxo); object-fit: cover; vertical-align: middle; margin-right: 15px; background: #000; }
 
         .painel { background: var(--card); border-radius: 20px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-bottom: 30px; border: 1px solid var(--borda); position: relative; }
         .painel::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--pl-verde); border-radius: 20px 20px 0 0; }
         
         .selecao-times { display: flex; justify-content: space-around; align-items: center; gap: 15px; }
         .time-card { flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .escudo-registro { width: 160px; height: 160px; border-radius: 50%; border: 5px solid var(--pl-roxo); object-fit: cover; box-shadow: 0 8px 25px rgba(61, 25, 91, 0.6); margin-bottom: 15px; background: #000; }
+        .escudo-registro { width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--pl-roxo); object-fit: cover; box-shadow: 0 8px 25px rgba(61, 25, 91, 0.6); margin-bottom: 15px; background: #000; }
         
         select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--borda); font-weight: bold; background: #000; color: var(--branco); font-size: 16px; outline: none; }
-        select:focus { border-color: var(--pl-verde); }
-        input { width: 90px; height: 80px; font-size: 45px; font-weight: 800; text-align: center; border: 1px solid var(--borda); border-radius: 15px; margin-top: 15px; background: #000; color: var(--pl-verde); }
+        input { width: 80px; height: 70px; font-size: 40px; font-weight: 800; text-align: center; border: 1px solid var(--borda); border-radius: 15px; margin-top: 15px; background: #000; color: var(--pl-verde); }
 
         button { background: var(--pl-verde); color: #000; font-weight: 800; border-radius: 12px; border: none; padding: 18px; cursor: pointer; width: 100%; font-size: 18px; text-transform: uppercase; transition: 0.3s; margin-top: 20px; }
         button:hover { background: var(--branco); transform: translateY(-2px); }
         .whatsapp-btn { background: #25d366; color: white; margin-bottom: 25px; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
-        .stat-item { background: var(--pl-roxo); color: white; padding: 20px; border-radius: 12px; text-align: left; border-left: 5px solid var(--pl-verde); }
+        .stat-item { background: var(--pl-roxo); color: white; padding: 15px; border-radius: 12px; text-align: left; border-left: 5px solid var(--pl-verde); }
         .stat-item span { font-size: 10px; text-transform: uppercase; color: var(--pl-verde); display: block; font-weight: bold; }
-        .stat-item strong { font-size: 20px; display: block; margin-top: 5px; }
+        .stat-item strong { font-size: 18px; display: block; margin-top: 5px; }
 
         .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; text-align: left; }
-        .history-box { background: var(--card); border-radius: 15px; padding: 15px; height: 250px; overflow-y: auto; border: 1px solid var(--borda); }
-        .score-pill { background: #222; padding: 4px 12px; border-radius: 6px; font-weight: 800; margin: 0 10px; color: var(--pl-verde); }
+        .history-box { background: var(--card); border-radius: 15px; padding: 15px; height: 250px; overflow-y: auto; border: 1px solid var(--borda); font-size: 13px; }
+        .score-pill { background: #222; padding: 4px 10px; border-radius: 6px; font-weight: 800; margin: 0 5px; color: var(--pl-verde); }
 
         .btn-reset { background: none; color: #666; border: 1px solid #333; padding: 10px; font-size: 11px; width: auto; margin: 10px; cursor: pointer; border-radius: 5px; }
-        .btn-reset:hover { color: var(--pl-rosa); border-color: var(--pl-rosa); }
     </style>
 </head>
 <body>
@@ -73,19 +71,19 @@
             </table>
         </div>
 
-        <button class="whatsapp-btn" onclick="compartilharZap()">📲 COMPARTILHAR NO GRUPO</button>
+        <button class="whatsapp-btn" onclick="compartilharZap()">📲 COMPARTILHAR NO WHATSAPP</button>
 
         <div class="painel">
-            <h2 style="margin:0 0 25px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; color: var(--pl-verde);">Registrar Resultado</h2>
+            <h2 style="margin:0 0 25px 0; font-size: 16px; text-transform: uppercase; color: var(--pl-verde);">Match Day</h2>
             <div class="selecao-times">
                 <div class="time-card">
-                    <img id="img-p1" src="LSHOW69.png" class="escudo-registro">
+                    <img id="img-p1" src="LSHOW69.png" class="escudo-registro" onerror="this.src='LSHOW69.png'">
                     <select id="p1" onchange="trocarFoto('p1')"></select>
                     <input type="number" id="gols1" value="0">
                 </div>
                 <div style="font-size: 30px; font-weight: 900; color: #333;">VS</div>
                 <div class="time-card">
-                    <img id="img-p2" src="YGOL.png" class="escudo-registro">
+                    <img id="img-p2" src="YGOL.png" class="escudo-registro" onerror="this.src='YGOL.png'">
                     <select id="p2" onchange="trocarFoto('p2')"></select>
                     <input type="number" id="gols2" value="0">
                 </div>
@@ -93,7 +91,7 @@
             <button onclick="registrarJogo()">Confirmar Resultado</button>
         </div>
 
-        <h3 style="text-align: left; margin-bottom: 15px; color: var(--pl-verde);">⚔️ RAIO-X DO DUELO</h3>
+        <h3 style="text-align: left; margin-bottom: 15px; color: var(--pl-verde);">⚔️ RAIO-X DO CONFRONTO</h3>
         <div style="display:flex; gap:10px; margin-bottom: 20px;">
             <select id="f1" onchange="filtrarConfronto()" style="flex:1"></select>
             <select id="f2" onchange="filtrarConfronto()" style="flex:1"></select>
@@ -103,16 +101,16 @@
 
         <div class="history-grid">
             <div>
-                <h4 style="font-size: 12px; text-transform: uppercase; color: #888;">Jogos Selecionados</h4>
+                <h4 style="font-size: 11px; text-transform: uppercase; color: #888;">Duelos Selecionados</h4>
                 <div class="history-box" id="caixa-confronto"></div>
             </div>
             <div>
-                <h4 style="font-size: 12px; text-transform: uppercase; color: #888;">Histórico Geral</h4>
+                <h4 style="font-size: 11px; text-transform: uppercase; color: #888;">Últimos Resultados</h4>
                 <div class="history-box" id="caixa-geral"></div>
             </div>
         </div>
 
-        <div style="margin-top: 50px; padding-bottom: 30px;">
+        <div style="margin-top: 50px; padding-bottom: 30px; text-align: center;">
             <button class="btn-reset" onclick="desfazerUltimo()">Anular Último Jogo</button>
             <button class="btn-reset" onclick="zerarTudo()" style="color: #ff005a;">Reset Geral</button>
         </div>
@@ -141,7 +139,7 @@
 
         function trocarFoto(id) {
             const nome = document.getElementById(id).value;
-            // Atualizado para procurar .png
+            // Tenta carregar o PNG primeiro
             document.getElementById('img-' + id).src = nome + ".png";
         }
 
@@ -161,7 +159,6 @@
             const ordenados = Object.entries(appData.jogadores).sort((a,b) => b[1].pts - a[1].pts || (b[1].gp-b[1].gc)-(a[1].gp-a[1].gc));
             
             ordenados.forEach(([nome, d], i) => {
-                // Atualizado para usar .png na tabela também
                 corpo.innerHTML += `<tr>
                     <td>${i+1}</td>
                     <td style="text-align:left"><img src="${nome}.png" class="escudo-tabela"> ${nome}</td>
@@ -172,7 +169,7 @@
             });
 
             document.getElementById('caixa-geral').innerHTML = (appData.historico || []).slice().reverse().map(j => `
-                <div style="padding:12px; border-bottom:1px solid #222; font-size:13px;">
+                <div style="padding:10px; border-bottom:1px solid #222;">
                     ${j.p1} <span class="score-pill">${j.g1} - ${j.g2}</span> ${j.p2}
                 </div>`).join('');
             filtrarConfronto();
@@ -196,13 +193,13 @@
             const apr2 = total > 0 ? (((s.v2*3+s.e)/(total*3))*100).toFixed(0) : 0;
 
             document.getElementById('raio-x-container').innerHTML = `
-                <div class="stat-item"><span>Gols Marcados (${f1})</span><strong>${s.g1} Gols</strong></div>
-                <div class="stat-item"><span>Gols Marcados (${f2})</span><strong>${s.g2} Gols</strong></div>
+                <div class="stat-item"><span>Gols Marcados (${f1})</span><strong>${s.g1}</strong></div>
+                <div class="stat-item"><span>Gols Marcados (${f2})</span><strong>${s.g2}</strong></div>
                 <div class="stat-item"><span>Aproveitamento ${f1}</span><strong>${apr1}%</strong></div>
-                <div class="stat-item"><span>Aproveitamento ${f2}</span><strong>${apr2}%</strong></div>`;
+                <div class="stat-item"><span>Vitórias ${f1}</span><strong>${s.v1}</strong></div>`;
             
             document.getElementById('caixa-confronto').innerHTML = [...jogos].reverse().map(j => `
-                <div style="padding:10px; border-bottom:1px dotted #333;">${j.p1} ${j.g1}x${j.g2} ${j.p2}</div>`).join('');
+                <div style="padding:8px; border-bottom:1px dotted #333;">${j.p1} ${j.g1}x${j.g2} ${j.p2}</div>`).join('');
         }
 
         function registrarJogo() {
