@@ -11,19 +11,17 @@
             --pl-roxo: #3d195b; 
             --pl-verde: #00ff85; 
             --pl-rosa: #ff005a;
-            --fundo: #000000; /* Fundo Preto Total */
-            --card: #111111; /* Cinza muito escuro para os cartões */
+            --fundo: #000000;
+            --card: #111111;
             --branco: #ffffff;
             --borda: #222222;
         }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--fundo); color: var(--branco); margin: 0; padding: 10px; }
         .container { max-width: 950px; margin: auto; }
 
-        /* HEADER ESTILO PREMIER */
         header { background: var(--pl-roxo); color: var(--branco); padding: 25px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(61, 25, 91, 0.5); border-bottom: 4px solid var(--pl-verde); }
         h1 { margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; }
 
-        /* TABELA */
         .card-table { background: var(--card); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,255,133,0.05); margin-bottom: 25px; border: 1px solid var(--borda); }
         table { width: 100%; border-collapse: collapse; }
         th { background: #080808; padding: 15px; text-align: left; font-size: 11px; color: #888; text-transform: uppercase; border-bottom: 1px solid var(--borda); }
@@ -31,7 +29,6 @@
         
         .escudo-tabela { width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--pl-roxo); object-fit: cover; vertical-align: middle; margin-right: 15px; background: #000; }
 
-        /* PAINEL DE REGISTRO */
         .painel { background: var(--card); border-radius: 20px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-bottom: 30px; border: 1px solid var(--borda); position: relative; }
         .painel::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--pl-verde); border-radius: 20px 20px 0 0; }
         
@@ -43,12 +40,10 @@
         select:focus { border-color: var(--pl-verde); }
         input { width: 90px; height: 80px; font-size: 45px; font-weight: 800; text-align: center; border: 1px solid var(--borda); border-radius: 15px; margin-top: 15px; background: #000; color: var(--pl-verde); }
 
-        /* BOTÕES */
         button { background: var(--pl-verde); color: #000; font-weight: 800; border-radius: 12px; border: none; padding: 18px; cursor: pointer; width: 100%; font-size: 18px; text-transform: uppercase; transition: 0.3s; margin-top: 20px; }
         button:hover { background: var(--branco); transform: translateY(-2px); }
         .whatsapp-btn { background: #25d366; color: white; margin-bottom: 25px; }
 
-        /* RAIO-X E HISTÓRICO */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
         .stat-item { background: var(--pl-roxo); color: white; padding: 20px; border-radius: 12px; text-align: left; border-left: 5px solid var(--pl-verde); }
         .stat-item span { font-size: 10px; text-transform: uppercase; color: var(--pl-verde); display: block; font-weight: bold; }
@@ -84,13 +79,13 @@
             <h2 style="margin:0 0 25px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; color: var(--pl-verde);">Registrar Resultado</h2>
             <div class="selecao-times">
                 <div class="time-card">
-                    <img id="img-p1" src="LSHOW69.jpg" class="escudo-registro">
+                    <img id="img-p1" src="LSHOW69.png" class="escudo-registro">
                     <select id="p1" onchange="trocarFoto('p1')"></select>
                     <input type="number" id="gols1" value="0">
                 </div>
                 <div style="font-size: 30px; font-weight: 900; color: #333;">VS</div>
                 <div class="time-card">
-                    <img id="img-p2" src="YGOL.jpg" class="escudo-registro">
+                    <img id="img-p2" src="YGOL.png" class="escudo-registro">
                     <select id="p2" onchange="trocarFoto('p2')"></select>
                     <input type="number" id="gols2" value="0">
                 </div>
@@ -124,7 +119,6 @@
     </div>
 
     <script>
-        // Configuração Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBIc5trqvEujQOdpU_VUZtvUGtHPKpF7o8",
             authDomain: "x1-dos-primos69.firebaseapp.com",
@@ -147,7 +141,8 @@
 
         function trocarFoto(id) {
             const nome = document.getElementById(id).value;
-            document.getElementById('img-' + id).src = nome + ".jpg";
+            // Atualizado para procurar .png
+            document.getElementById('img-' + id).src = nome + ".png";
         }
 
         db.ref('arena_v1').on('value', (snap) => {
@@ -166,9 +161,10 @@
             const ordenados = Object.entries(appData.jogadores).sort((a,b) => b[1].pts - a[1].pts || (b[1].gp-b[1].gc)-(a[1].gp-a[1].gc));
             
             ordenados.forEach(([nome, d], i) => {
+                // Atualizado para usar .png na tabela também
                 corpo.innerHTML += `<tr>
                     <td>${i+1}</td>
-                    <td style="text-align:left"><img src="${nome}.jpg" class="escudo-tabela"> ${nome}</td>
+                    <td style="text-align:left"><img src="${nome}.png" class="escudo-tabela"> ${nome}</td>
                     <td style="color:var(--pl-verde); font-size: 18px;">${d.pts}</td>
                     <td>${d.v}</td><td>${d.e}</td><td>${d.d}</td>
                     <td>${d.gp-d.gc}</td>
