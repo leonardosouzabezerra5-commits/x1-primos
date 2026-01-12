@@ -17,7 +17,7 @@
         }
 
         body { 
-            font-family: 'Segoe UI', Roboto, sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             background: var(--ef-dark); 
             background-image: radial-gradient(circle at top right, #002d72, transparent);
             color: white; text-align: center; padding: 15px; margin: 0;
@@ -39,12 +39,11 @@
         input[type="number"] { width: 60px; height: 50px; font-size: 24px; text-align: center; border-radius: 8px; border: none; font-weight: 900; margin-top: 10px; }
 
         button { background: var(--ef-yellow); color: var(--ef-dark); font-weight: 900; text-transform: uppercase; border-radius: 50px; border: none; padding: 12px 30px; cursor: pointer; margin: 10px 0; transition: 0.3s; }
-        button:hover { transform: scale(1.05); }
         .whatsapp-btn { background: #25d366; color: white; width: 100%; max-width: 300px; }
 
         .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .history-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 10px; height: 250px; overflow-y: auto; text-align: left; border: 1px solid rgba(255,255,255,0.1); }
-        .history-item { background: rgba(0,0,0,0.4); margin-bottom: 5px; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .history-item { background: rgba(0,0,0,0.4); margin-bottom: 5px; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
         .score-pill { background: var(--ef-yellow); color: var(--ef-dark); padding: 2px 6px; border-radius: 4px; font-weight: 900; }
 
         @media (max-width: 600px) { .history-grid { grid-template-columns: 1fr; } }
@@ -102,7 +101,7 @@
     </div>
 
     <script>
-        // CONFIGURAÇÃO FIREBASE
+        // CONFIGURAÇÃO FIREBASE - Baseada em suas imagens
         const firebaseConfig = {
           apiKey: "AIzaSyBIc5trqvEujQOdpU_VUZtvUGtHPKpF7o8",
           authDomain: "x1-dos-primos69.firebaseapp.com",
@@ -110,20 +109,20 @@
           projectId: "x1-dos-primos69",
           storageBucket: "x1-dos-primos69.firebasestorage.app",
           messagingSenderId: "202105662518",
-          appId: "1:202105662518:web:395970a7858318b529bc97",
-          measurementId: "G-WTFVFSCKML"
+          appId: "1:202105662518:web:395970a7858318b529bc97"
         };
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // NOMES DOS TIMES
+        // TIMES ATUALIZADOS
         const nomesJogadores = ["LSHOW69", "CHEIROZIN", "YGOL"];
         const dadosPadrao = { jogadores: {}, historico: [] };
         nomesJogadores.forEach(n => dadosPadrao.jogadores[n] = { pts: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 });
 
         let appData = dadosPadrao;
 
+        // Escuta em tempo real
         db.ref('arena_v1').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -155,15 +154,19 @@
             const p2 = document.getElementById('p2').value;
             const g1 = parseInt(document.getElementById('gols1').value);
             const g2 = parseInt(document.getElementById('gols2').value);
+
             if (p1 === p2) return alert("Escolha times diferentes!");
 
             processarResultado(p1, g1, p2, g2, 1);
             if (!appData.historico) appData.historico = [];
             appData.historico.push({ p1, g1, p2, g2 });
 
-            db.ref('arena_v1').set(appData);
-            document.getElementById('gols1').value = 0;
-            document.getElementById('gols2').value = 0;
+            db.ref('arena_v1').set(appData)
+                .then(() => {
+                    document.getElementById('gols1').value = 0;
+                    document.getElementById('gols2').value = 0;
+                })
+                .catch(err => alert("Erro ao salvar: " + err.message));
         }
 
         function processarResultado(p1, g1, p2, g2, mod) {
@@ -176,7 +179,7 @@
 
         function desfazerUltimo() {
             if (!appData.historico || appData.historico.length === 0) return;
-            if (confirm("Anular o último resultado registrado?")) {
+            if (confirm("Anular o último jogo para todos?")) {
                 const j = appData.historico.pop();
                 processarResultado(j.p1, j.g1, j.p2, j.g2, -1);
                 db.ref('arena_v1').set(appData);
@@ -201,7 +204,7 @@
         }
 
         function compartilharZap() {
-            let t = `🎮 *X1 DOS PRIMOS69*\n\n`;
+            let t = `🏆 *X1 DOS PRIMOS69*\n\n`;
             Object.entries(appData.jogadores).sort((a,b)=>b[1].pts-a[1].pts).forEach(([n,d],i)=> t += `${i+1}º *${n}* - ${d.pts}pts\n`);
             window.open(`https://wa.me/?text=${encodeURIComponent(t)}`);
         }
