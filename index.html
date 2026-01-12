@@ -4,149 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X1 DOS PRIMOS69</title>
-    
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
     <style>
-        :root {
-            --ef-blue: #001d4a;
-            --ef-dark: #000a1a;
-            --ef-yellow: #d3ff00;
-            --ef-gradient: linear-gradient(135deg, #001d4a 0%, #000a1a 100%);
-        }
-
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: var(--ef-dark); 
-            background-image: radial-gradient(circle at top right, #002d72, transparent);
-            color: white; text-align: center; padding: 15px; margin: 0;
-        }
-
+        :root { --ef-blue: #001d4a; --ef-dark: #000a1a; --ef-yellow: #d3ff00; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--ef-dark); color: white; text-align: center; padding: 15px; margin: 0; }
         .container { max-width: 850px; margin: auto; }
-        h1 { font-style: italic; text-transform: uppercase; color: var(--ef-yellow); border-bottom: 3px solid var(--ef-yellow); display: inline-block; margin-bottom: 20px; font-size: 22px; }
-
-        .card-table { background: rgba(0, 29, 74, 0.8); border: 1px solid rgba(211, 255, 0, 0.3); border-radius: 15px; overflow: hidden; backdrop-filter: blur(10px); margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        th { background: rgba(211, 255, 0, 0.1); color: var(--ef-yellow); padding: 12px; text-transform: uppercase; font-size: 11px; }
+        .card-table { background: rgba(0, 29, 74, 0.8); border: 1px solid rgba(211, 255, 0, 0.3); border-radius: 15px; overflow: hidden; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: rgba(211, 255, 0, 0.1); color: var(--ef-yellow); padding: 12px; font-size: 11px; }
         td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .pos-1 { background: rgba(211, 255, 0, 0.1); font-weight: bold; color: var(--ef-yellow); }
-
-        .ef-panel { background: var(--ef-gradient); border-radius: 20px; padding: 20px; border-left: 8px solid var(--ef-yellow); margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .score-input { display: flex; align-items: center; justify-content: space-around; }
-        
-        select { background: #000; color: white; border: 1px solid var(--ef-yellow); padding: 8px; border-radius: 5px; font-weight: bold; width: 130px; }
-        input[type="number"] { width: 60px; height: 50px; font-size: 24px; text-align: center; border-radius: 8px; border: none; font-weight: 900; margin-top: 10px; }
-
-        button { background: var(--ef-yellow); color: var(--ef-dark); font-weight: 900; text-transform: uppercase; border-radius: 50px; border: none; padding: 12px 30px; cursor: pointer; margin: 10px 0; transition: 0.3s; }
-        .whatsapp-btn { background: #25d366; color: white; width: 100%; max-width: 300px; }
-
-        .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .history-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 10px; height: 250px; overflow-y: auto; text-align: left; border: 1px solid rgba(255,255,255,0.1); }
-        .history-item { background: rgba(0,0,0,0.4); margin-bottom: 5px; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
-        .score-pill { background: var(--ef-yellow); color: var(--ef-dark); padding: 2px 6px; border-radius: 4px; font-weight: 900; }
-
-        @media (max-width: 600px) { .history-grid { grid-template-columns: 1fr; } }
+        .ef-panel { background: linear-gradient(135deg, #001d4a 0%, #000a1a 100%); border-radius: 20px; padding: 20px; border-left: 8px solid var(--ef-yellow); margin-bottom: 20px; }
+        select { background: #000; color: white; border: 1px solid var(--ef-yellow); padding: 8px; border-radius: 5px; width: 130px; }
+        input { width: 60px; height: 50px; font-size: 24px; text-align: center; border-radius: 8px; margin-top: 10px; }
+        button { background: var(--ef-yellow); color: var(--ef-dark); font-weight: 900; border-radius: 50px; border: none; padding: 12px 30px; cursor: pointer; margin-top: 15px; }
+        .history-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 10px; height: 200px; overflow-y: auto; }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>X1 DOS PRIMOS69</h1>
-
         <div class="card-table">
             <table>
-                <thead>
-                    <tr><th>Pos</th><th>Time</th><th>PTS</th><th>V/E/D</th><th>SG</th><th>%</th></tr>
-                </thead>
+                <thead><tr><th>Pos</th><th>Time</th><th>PTS</th><th>V/E/D</th><th>SG</th></tr></thead>
                 <tbody id="tabela-corpo"></tbody>
             </table>
         </div>
-
-        <button class="whatsapp-btn" onclick="compartilharZap()">📲 Compartilhar no WhatsApp</button>
-
         <div class="ef-panel">
-            <h3 style="color: var(--ef-yellow); margin: 0 0 15px 0;">REGISTRAR CONFRONTO</h3>
-            <div class="score-input">
-                <div>
-                    <select id="p1"></select><br>
-                    <input type="number" id="gols1" value="0">
-                </div>
-                <div style="font-weight: 900; color: var(--ef-yellow);">VS</div>
-                <div>
-                    <select id="p2"></select><br>
-                    <input type="number" id="gols2" value="0">
-                </div>
+            <h3>REGISTRAR CONFRONTO</h3>
+            <div style="display:flex; justify-content: space-around; align-items: center;">
+                <div><select id="p1"></select><br><input type="number" id="gols1" value="0"></div>
+                <div style="font-weight:bold; color:var(--ef-yellow)">VS</div>
+                <div><select id="p2"></select><br><input type="number" id="gols2" value="0"></div>
             </div>
-            <button onclick="registrarJogo()">Salvar Resultado</button>
+            <button onclick="registrarJogo()">SALVAR RESULTADO</button>
         </div>
-
-        <div class="history-grid">
-            <div>
-                <h3 style="color: var(--ef-yellow);">⚔️ Confronto Direto</h3>
-                <div style="margin-bottom: 10px; display: flex; gap: 5px;">
-                    <select id="f1" onchange="filtrarConfronto()"></select>
-                    <select id="f2" onchange="filtrarConfronto()"></select>
-                </div>
-                <div class="history-box" id="caixa-confronto"></div>
-            </div>
-            <div>
-                <h3 style="color: var(--ef-yellow);">📜 Histórico</h3>
-                <div class="history-box" id="caixa-geral"></div>
-            </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div><h4>⚔️ Confronto Direto</h4><div class="history-box" id="caixa-confronto"></div></div>
+            <div><h4>📜 Histórico</h4><div class="history-box" id="caixa-geral"></div></div>
         </div>
-        
-        <br>
-        <button onclick="desfazerUltimo()" style="background:#ff4444; color:white; font-size:10px; border-radius: 5px;">ANULAR ÚLTIMO JOGO</button>
     </div>
 
     <script>
-        // CONFIGURAÇÃO FIREBASE - Baseada em suas imagens
         const firebaseConfig = {
-          apiKey: "AIzaSyBIc5trqvEujQOdpU_VUZtvUGtHPKpF7o8",
-          authDomain: "x1-dos-primos69.firebaseapp.com",
-          databaseURL: "https://x1-dos-primos69-default-rtdb.firebaseio.com",
-          projectId: "x1-dos-primos69",
-          storageBucket: "x1-dos-primos69.firebasestorage.app",
-          messagingSenderId: "202105662518",
-          appId: "1:202105662518:web:395970a7858318b529bc97"
+            apiKey: "AIzaSyBIc5trqvEujQOdpU_VUZtvUGtHPKpF7o8",
+            authDomain: "x1-dos-primos69.firebaseapp.com",
+            databaseURL: "https://x1-dos-primos69-default-rtdb.firebaseio.com",
+            projectId: "x1-dos-primos69",
+            storageBucket: "x1-dos-primos69.firebasestorage.app",
+            appId: "1:202105662518:web:395970a7858318b529bc97"
         };
-
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // TIMES ATUALIZADOS
+        // NOMES DOS TIMES CORRIGIDOS
         const nomesJogadores = ["LSHOW69", "CHEIROZIN", "YGOL"];
-        const dadosPadrao = { jogadores: {}, historico: [] };
-        nomesJogadores.forEach(n => dadosPadrao.jogadores[n] = { pts: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 });
+        let appData = { jogadores: {}, historico: [] };
+        nomesJogadores.forEach(n => appData.jogadores[n] = { pts: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 });
 
-        let appData = dadosPadrao;
-
-        // Escuta em tempo real
         db.ref('arena_v1').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                appData = data;
-                atualizarInterface();
-            } else {
-                db.ref('arena_v1').set(dadosPadrao);
-            }
+            if (snapshot.val()) { appData = snapshot.val(); atualizarInterface(); }
         });
 
         function atualizarInterface() {
             const corpo = document.getElementById('tabela-corpo');
             corpo.innerHTML = "";
-            const ordenados = Object.entries(appData.jogadores).sort((a, b) => b[1].pts - a[1].pts || (b[1].gp - b[1].gc) - (a[1].gp - a[1].gc));
-
-            ordenados.forEach(([nome, d], i) => {
-                const total = d.v + d.e + d.d;
-                const aproveitamento = total > 0 ? ((d.pts / (total * 3)) * 100).toFixed(0) : 0;
-                corpo.innerHTML += `<tr class="${i === 0 ? 'pos-1' : ''}"><td>${i+1}º</td><td>${nome}</td><td>${d.pts}</td><td>${d.v}/${d.e}/${d.d}</td><td>${d.gp-d.gc}</td><td>${aproveitamento}%</td></tr>`;
+            Object.entries(appData.jogadores).sort((a,b) => b[1].pts - a[1].pts).forEach(([nome, d], i) => {
+                corpo.innerHTML += `<tr><td>${i+1}º</td><td>${nome}</td><td>${d.pts}</td><td>${d.v}/${d.e}/${d.d}</td><td>${d.gp-d.gc}</td></tr>`;
             });
-
-            const hist = appData.historico || [];
-            document.getElementById('caixa-geral').innerHTML = [...hist].reverse().map(j => `<div class="history-item"><span>${j.p1} <span class="score-pill">${j.g1}-${j.g2}</span> ${j.p2}</span></div>`).join('');
-            filtrarConfronto();
+            document.getElementById('caixa-geral').innerHTML = (appData.historico || []).slice().reverse().map(j => `<div style="margin-bottom:5px">${j.p1} ${j.g1}x${j.g2} ${j.p2}</div>`).join('');
         }
 
         function registrarJogo() {
@@ -154,62 +80,29 @@
             const p2 = document.getElementById('p2').value;
             const g1 = parseInt(document.getElementById('gols1').value);
             const g2 = parseInt(document.getElementById('gols2').value);
-
             if (p1 === p2) return alert("Escolha times diferentes!");
 
-            processarResultado(p1, g1, p2, g2, 1);
+            // Atualiza pontos
+            appData.jogadores[p1].gp += g1; appData.jogadores[p1].gc += g2;
+            appData.jogadores[p2].gp += g2; appData.jogadores[p2].gc += g1;
+            if (g1 > g2) { appData.jogadores[p1].pts += 3; appData.jogadores[p1].v += 1; appData.jogadores[p2].d += 1; }
+            else if (g2 > g1) { appData.jogadores[p2].pts += 3; appData.jogadores[p2].v += 1; appData.jogadores[p1].d += 1; }
+            else { appData.jogadores[p1].pts += 1; appData.jogadores[p1].e += 1; appData.jogadores[p2].pts += 1; appData.jogadores[p2].e += 1; }
+
             if (!appData.historico) appData.historico = [];
             appData.historico.push({ p1, g1, p2, g2 });
 
             db.ref('arena_v1').set(appData)
-                .then(() => {
-                    document.getElementById('gols1').value = 0;
-                    document.getElementById('gols2').value = 0;
-                })
+                .then(() => alert("Resultado salvo com sucesso!"))
                 .catch(err => alert("Erro ao salvar: " + err.message));
         }
 
-        function processarResultado(p1, g1, p2, g2, mod) {
-            appData.jogadores[p1].gp += (g1 * mod); appData.jogadores[p1].gc += (g2 * mod);
-            appData.jogadores[p2].gp += (g2 * mod); appData.jogadores[p2].gc += (g1 * mod);
-            if (g1 > g2) { appData.jogadores[p1].pts += (3 * mod); appData.jogadores[p1].v += (1 * mod); appData.jogadores[p2].d += (1 * mod); }
-            else if (g2 > g1) { appData.jogadores[p2].pts += (3 * mod); appData.jogadores[p2].v += (1 * mod); appData.jogadores[p1].d += (1 * mod); }
-            else { appData.jogadores[p1].pts += (1 * mod); appData.jogadores[p1].e += (1 * mod); appData.jogadores[p2].pts += (1 * mod); appData.jogadores[p2].e += (1 * mod); }
-        }
-
-        function desfazerUltimo() {
-            if (!appData.historico || appData.historico.length === 0) return;
-            if (confirm("Anular o último jogo para todos?")) {
-                const j = appData.historico.pop();
-                processarResultado(j.p1, j.g1, j.p2, j.g2, -1);
-                db.ref('arena_v1').set(appData);
-            }
-        }
-
-        function carregarSelects() {
-            const sels = ['p1', 'p2', 'f1', 'f2'];
-            sels.forEach(s => {
-                const el = document.getElementById(s);
-                nomesJogadores.forEach(n => el.innerHTML += `<option value="${n}">${n}</option>`);
-            });
-            document.getElementById('p2').selectedIndex = 1;
-            document.getElementById('f2').selectedIndex = 1;
-        }
-
-        function filtrarConfronto() {
-            const f1 = document.getElementById('f1').value;
-            const f2 = document.getElementById('f2').value;
-            const jogos = (appData.historico || []).filter(j => (j.p1 === f1 && j.p2 === f2) || (j.p1 === f2 && j.p2 === f1));
-            document.getElementById('caixa-confronto').innerHTML = jogos.reverse().map(j => `<div class="history-item"><span>${j.p1} ${j.g1}-${j.g2} ${j.p2}</span></div>`).join('');
-        }
-
-        function compartilharZap() {
-            let t = `🏆 *X1 DOS PRIMOS69*\n\n`;
-            Object.entries(appData.jogadores).sort((a,b)=>b[1].pts-a[1].pts).forEach(([n,d],i)=> t += `${i+1}º *${n}* - ${d.pts}pts\n`);
-            window.open(`https://wa.me/?text=${encodeURIComponent(t)}`);
-        }
-
-        carregarSelects();
+        const sels = ['p1', 'p2'];
+        sels.forEach(s => {
+            const el = document.getElementById(s);
+            nomesJogadores.forEach(n => el.innerHTML += `<option value="${n}">${n}</option>`);
+        });
+        document.getElementById('p2').selectedIndex = 1;
     </script>
 </body>
 </html>
